@@ -1,13 +1,8 @@
 var daysPerMonth = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 var isLeapyear = function(year) {
-	if (year % 4 !== 0) {
-		return false;
-	}
-
-	if (year % 100 === 0 && year % 400 !== 0) {
-		return false;
-	}
+	if (year % 4 !== 0) { return false; }
+	if (year % 100 === 0 && year % 400 !== 0) { return false; }
 
 	return true;
 }
@@ -38,9 +33,7 @@ var daysAreValidForMonth = function(month, otherNumbers) {
 	
 	_.each(numbers, function(num) {
 		var potentialYear = getOtherNumberInArray(num, numbers);
-		if (num <= getDaysPerMonth(month, potentialYear) 
-			&& num > result) {
-
+		if (num <= getDaysPerMonth(month, potentialYear) && num > result) {
 			result = num;
 		}
 	});
@@ -58,7 +51,7 @@ var handleAndSort = function(input) {
 	var arr = input.split('/');
 
 	var numbers = [];
-	_.each(arr, function(n) { numbers.push(parseInt(n)); });
+	arr.forEach(function(n) { numbers.push(parseInt(n)); })
 	numbers.sort();
 
 	return numbers;
@@ -66,18 +59,28 @@ var handleAndSort = function(input) {
 
 var validate = function(input) {
 	var numbers = handleAndSort(input);
-
 	var validMonths = returnValidMonths(numbers);
 	console.log('validMonths ', validMonths);
-	_.each(validMonths, function(month) {
+		
+	validMonths.forEach(function(month) {
 		console.log('month', month);
 		console.log('numbers ', numbers);
 		var potDays = daysAreValidForMonth(month, numbers);
 		console.log('potDays ', potDays);
-	})
+	});
 }
-
 /*
+
+	- kolla om det finns något garanterat år.
+		- 4 siffror
+		- 31 <
+
+	- kolla om det finns någon garanterad dag.
+		- 12 < 32 <
+
+	-
+
+
 -hitta potentiella månader.
 -sortera efter storlek, störst först.
 -verifiera att månaden kan ha något av dom övriga som dagar.

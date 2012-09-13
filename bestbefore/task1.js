@@ -31,7 +31,7 @@ var daysAreValidForMonth = function(month, otherNumbers) {
 	numbers.sort().reverse();
 	var result = 0;
 	
-	_.each(numbers, function(num) {
+	numbers.forEach(function(num) {
 		var potentialYear = getOtherNumberInArray(num, numbers);
 		if (num <= getDaysPerMonth(month, potentialYear) && num > result) {
 			result = num;
@@ -57,18 +57,29 @@ var handleAndSort = function(input) {
 	return numbers;
 }
 
-var validate = function(input) {
-	var numbers = handleAndSort(input);
-	var validMonths = returnValidMonths(numbers);
-	console.log('validMonths ', validMonths);
-		
-	validMonths.forEach(function(month) {
-		console.log('month', month);
-		console.log('numbers ', numbers);
-		var potDays = daysAreValidForMonth(month, numbers);
-		console.log('potDays ', potDays);
+var containsYear = function(numbers) {
+	var result = false;
+
+	numbers.forEach(function(i) {
+		var fourDigit = i.length === 4;
+		var highNumber = parseInt(i) > 31 && parseInt(i) <= 99;
+		var zero = parseInt(i) === 0;
+
+		if (fourDigit || highNumber || zero) {
+			result = i;
+		}
 	});
+
+	return result;
 }
+
+var validate = function(input) {
+	input = input.split('/');
+
+	var simpleYear = containesYear(input);
+}
+
+
 /*
 
 	- kolla om det finns något garanterat år.
@@ -78,7 +89,7 @@ var validate = function(input) {
 	- kolla om det finns någon garanterad dag.
 		- 12 < 32 <
 
-	-
+	- 
 
 
 -hitta potentiella månader.

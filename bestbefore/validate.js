@@ -33,7 +33,9 @@ var validate = function(input) {
 	}
 
 	console.log('finalYear: ', finalYear, 'finalMonth: ', finalMonth, 'finalDay: ', finalDay);
-
+	if (finalYear === undefined || finalMonth === undefined || finalDay === undefined) {
+		return input + ' is illegal';
+	}
 	return formatDate(finalYear, finalMonth, finalDay);
 }
 

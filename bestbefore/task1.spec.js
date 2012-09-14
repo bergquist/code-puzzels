@@ -37,14 +37,13 @@ describe('validate', function() {
 			var result = validate('2001/02/03');
 			expect(result).toEqual('2001-02-03');
 		})
-	})
-	/*
+	});
+	
 	describe("30/30/30", function() {
 		it("should return 30/30/30 is illegal", function() {
 			var result = validate("30/30/30");
 			expect(result).toEqual("30/30/30 is illegal");
 		});		
 	});
-	*/	
 });
 

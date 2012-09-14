@@ -19,10 +19,10 @@ var getDaysPerMonth = function(month, year) {
 	}
 }
 
-var getOtherNumberInArray = function(num, numbers) {
+var removeFromArray = function(numbers, num) {
 	var other = numbers.slice();
 	other.splice(other.indexOf(num), 1);
-	return other[0];
+	return other;
 }
 
 var daysAreValidForMonth = function(month, otherNumbers) {
@@ -32,7 +32,7 @@ var daysAreValidForMonth = function(month, otherNumbers) {
 	var result = 0;
 	
 	numbers.forEach(function(num) {
-		var potentialYear = getOtherNumberInArray(num, numbers);
+		var potentialYear = removeFromArray(numbers, num);
 		if (num <= getDaysPerMonth(month, potentialYear) && num > result) {
 			result = num;
 		}
@@ -47,7 +47,7 @@ var returnValidMonths = function(numbers) {
 	});
 }
 
-var handleAndSort = function(input) {
+var convertInput = function(input) {
 	var arr = input.split('/');
 
 	var numbers = [];
@@ -61,10 +61,10 @@ var containsYear = function(numbers) {
 	var result = false;
 
 	numbers.forEach(function(i) {
-		var fourDigit = i.length === 4;
-		var highNumber = parseInt(i) > 31 && parseInt(i) <= 99;
-		var zero = parseInt(i) === 0;
-
+		var fourDigit = i.toString().length === 4;
+		var highNumber = i > 31 && i <= 99;
+		var zero = (i === 0);
+		
 		if (fourDigit || highNumber || zero) {
 			result = i;
 		}
@@ -73,28 +73,3 @@ var containsYear = function(numbers) {
 	return result;
 }
 
-var validate = function(input) {
-	input = input.split('/');
-
-	var simpleYear = containesYear(input);
-}
-
-
-/*
-
-	- kolla om det finns något garanterat år.
-		- 4 siffror
-		- 31 <
-
-	- kolla om det finns någon garanterad dag.
-		- 12 < 32 <
-
-	- 
-
-
--hitta potentiella månader.
--sortera efter storlek, störst först.
--verifiera att månaden kan ha något av dom övriga som dagar.
--om fler alternativ finns. ta det högsta för att få ett 
-	så lågt år som möjlgit.
-*/

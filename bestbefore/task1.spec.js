@@ -45,5 +45,18 @@ describe('validate', function() {
 			expect(result).toEqual("30/30/30 is illegal");
 		});		
 	});
+
+	//spotify tests
+	describe('02/4/67', function() {
+		it('should return 2067-02-04', function() {
+			expect(validate('02/4/67')).toEqual('2067-02-04');
+		})
+	});
+
+	describe('31/9/73', function() {
+		it('should return 2067-02-04 is illegal', function() {
+			expect(validate('31/9/73')).toEqual('31/9/73 is illegal');
+		})
+	});
 });
 

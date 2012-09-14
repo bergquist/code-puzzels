@@ -19,6 +19,10 @@ var getDaysPerMonth = function(month, year) {
 	}
 }
 
+var deleteFromArray = function(arr, value) {
+	arr.splice(arr.indexOf(value), 1);
+}
+
 var removeFromArray = function(numbers, num) {
 	var other = numbers.slice();
 	other.splice(other.indexOf(num), 1);

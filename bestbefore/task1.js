@@ -57,7 +57,6 @@ var convertInput = function(input) {
 	var numbers = [];
 	arr.forEach(function(n) { numbers.push(parseInt(n)); })
 	numbers.sort();
-
 	return numbers;
 }
 

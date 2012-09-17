@@ -44,10 +44,11 @@ BestBefore.prototype.tryToFindYear = function() {
 	if (simpleYear) { 
 		this.finalYear = simpleYear;
 		deleteFromArray(this.numbers, this.finalYear);
-	} else if (this.validMonths.length >= 2 && this.finalYear === undefined) {
-		this.validMonths.sort().reverse();
+	} else if (this.validMonths.length >= 2 && this.finalYear === undefined) { //remove undefined check
+		this.validMonths.sort(function(a, b){ return a - b; });
 		this.finalYear = this.validMonths[0];
 		this.validMonths = removeFromArray(this.validMonths, this.finalYear);
+		deleteFromArray(this.numbers, this.finalYear);
 	}
 }
 

@@ -13,13 +13,14 @@ describe('simple year', function() {
 
 
 describe('validate', function() {
+	
 	describe("28/2/12", function() {
 		it("should return 2002-12-28", function() {
 			var result = validate("28/2/12");
 			expect(result).toEqual("2002-12-28");
 		});
 	});
-
+	
 	describe("28/28/12", function() {
 		it("should return 2028-12-28", function() {
 			var result = validate("28/28/12");
@@ -53,7 +54,7 @@ describe('validate', function() {
 			expect(validate('31/9/73')).toEqual('31/9/73 is illegal');
 		})
 	});
-
+	
 	describe('10/11/12', function() {
 		it('should return 2010-11-12', function() {
 			expect(validate('10/11/12')).toEqual('2010-11-12');

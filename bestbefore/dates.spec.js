@@ -46,4 +46,3 @@ describe("can validate leapyear", function() {
 		it("2100", function() { expect(isLeapyear(2100)).toBeFalsy(); });
 	});
 });
-

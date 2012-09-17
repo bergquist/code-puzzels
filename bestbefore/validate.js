@@ -4,7 +4,7 @@ var BestBefore = function(input) {
 	this.validMonths = [];
 }
 
-BestBefore.prototype.findValidDays = function() {
+BestBefore.prototype.setHighestAsDay = function() {
 	var self = this;
 	this.validMonths.forEach(function(i) {
 		var day = daysAreValidForMonth(i, self.numbers);
@@ -22,7 +22,7 @@ BestBefore.prototype.SetYear = function() {
 	}
 }
 
-BestBefore.prototype.formatDate = function() {
+BestBefore.prototype.formatResponse = function() {
 	if (this.finalYear < 2000) {
 		this.finalYear += 2000;
 		this.finalYear = this.finalYear.toString();
@@ -55,17 +55,16 @@ BestBefore.prototype.validate = function() {
 	this.validMonths = returnValidMonths(this.numbers);
 	this.tryToFindYear();
 	
-	this.findValidDays();
+	this.setHighestAsDay();
 	this.SetYear();
 
 	if (this.finalYear && this.finalMonth && this.finalDay) {
-		return this.formatDate();
+		return this.formatResponse();
 	} else {
-		return  this.input +' is illegal';
+		return  this.input + ' is illegal';
 	}
 }
 
 var validate = function(input) {
-	var validator = new BestBefore(input);
-	return validator.validate();
+	return new BestBefore(input).validate();
 }

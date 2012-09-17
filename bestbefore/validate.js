@@ -21,25 +21,6 @@ var BestBefore = function(input) {
 	this.validMonths = [];
 }
 
-BestBefore.prototype.findSimpleYear = function() {
-	var simpleYear = containsYear(this.numbers);
-	if (simpleYear) { 
-		this.finalYear = simpleYear;
-		deleteFromArray(this.numbers, this.finalYear);
-	}
-}
-
-BestBefore.prototype.findValidMonths = function() {
-	this.validMonths = returnValidMonths(this.numbers);
-	
-	//bryt ut till egen method
-	if (this.validMonths.length >= 2 && this.finalYear === undefined) {
-		this.validMonths.sort().reverse();
-		this.finalYear = this.validMonths[0];
-		this.validMonths = removeFromArray(this.validMonths, this.finalYear);
-	}
-}
-
 BestBefore.prototype.findValidDays = function() {
 	var self = this;
 	this.validMonths.forEach(function(i) {
@@ -75,9 +56,22 @@ BestBefore.prototype.formatDate = function() {
 	return this.finalYear + '-' + this.finalMonth + '-' + this.finalDay;
 }
 
+BestBefore.prototype.tryToFindYear = function() {
+	var simpleYear = containsYear(this.numbers);
+	if (simpleYear) { 
+		this.finalYear = simpleYear;
+		deleteFromArray(this.numbers, this.finalYear);
+	} else if (this.validMonths.length >= 2 && this.finalYear === undefined) {
+		this.validMonths.sort().reverse();
+		this.finalYear = this.validMonths[0];
+		this.validMonths = removeFromArray(this.validMonths, this.finalYear);
+	}
+}
+
 BestBefore.prototype.validate = function() {
-	this.findSimpleYear();
-	this.findValidMonths();
+	this.validMonths = returnValidMonths(this.numbers);
+	this.tryToFindYear();
+	
 	this.findValidDays();
 	this.SetYear();
 

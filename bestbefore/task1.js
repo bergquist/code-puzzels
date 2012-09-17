@@ -32,7 +32,7 @@ var removeFromArray = function(numbers, num) {
 var daysAreValidForMonth = function(month, otherNumbers) {
 	var numbers = otherNumbers.slice();
 	numbers.splice(numbers.indexOf(month), 1);
-	numbers.sort().reverse();
+	numbers.sort(function(a, b){ return a - b; }).reverse();
 	var result = 0;
 	
 	numbers.forEach(function(num) {

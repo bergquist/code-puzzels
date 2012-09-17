@@ -6,11 +6,11 @@ var BestBefore = function(input) {
 
 BestBefore.prototype.setHighestAsDay = function() {
 	var self = this;
-	this.validMonths.forEach(function(i) {
-		var day = daysAreValidForMonth(i, self.numbers);
+	this.validMonths.forEach(function(month) {
+		var day = daysAreValidForMonth(month, self.numbers);
 		if (day) {
 			self.finalDay = day;
-			self.finalMonth = i;
+			self.finalMonth = month;
 			deleteFromArray(self.numbers, self.finalMonth);
 		}
 	});
@@ -18,7 +18,8 @@ BestBefore.prototype.setHighestAsDay = function() {
 
 BestBefore.prototype.SetYear = function() {
 	if (this.finalYear === undefined) {
-		this.finalYear = removeFromArray(this.numbers, this.finalDay)[0];
+		deleteFromArray(this.numbers, this.finalDay);
+		this.finalYear = this.numbers[0];
 	}
 }
 
@@ -43,11 +44,13 @@ BestBefore.prototype.tryToFindYear = function() {
 	var simpleYear = containsYear(this.numbers);
 	if (simpleYear) { 
 		this.finalYear = simpleYear;
-		deleteFromArray(this.numbers, this.finalYear);
-	} else if (this.validMonths.length >= 2 && this.finalYear === undefined) { //remove undefined check
+	} else if (this.validMonths.length >= 2) {
 		this.validMonths.sort(function(a, b){ return a - b; });
 		this.finalYear = this.validMonths[0];
-		this.validMonths = removeFromArray(this.validMonths, this.finalYear);
+		deleteFromArray(this.validMonths, this.finalYear);
+	}
+
+	if (this.finalYear) {
 		deleteFromArray(this.numbers, this.finalYear);
 	}
 }
@@ -55,7 +58,6 @@ BestBefore.prototype.tryToFindYear = function() {
 BestBefore.prototype.validate = function() {
 	this.validMonths = returnValidMonths(this.numbers);
 	this.tryToFindYear();
-	
 	this.setHighestAsDay();
 	this.SetYear();
 

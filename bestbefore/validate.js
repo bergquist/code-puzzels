@@ -52,12 +52,6 @@ BestBefore.prototype.findValidDays = function() {
 	});
 }
 
-BestBefore.prototype.isDateValid = function() {
-	return this.finalYear !== undefined &&
-		this.finalMonth !== undefined &&
-		this.finalDay !== undefined;
-}
-
 BestBefore.prototype.SetYear = function() {
 	if (this.finalYear === undefined) {
 		this.finalYear = removeFromArray(this.numbers, this.finalDay)[0];
@@ -87,7 +81,7 @@ BestBefore.prototype.validate = function() {
 	this.findValidDays();
 	this.SetYear();
 
-	if (this.isDateValid()) {
+	if (this.finalYear && this.finalMonth && this.finalDay) {
 		return this.formatDate();
 	} else {
 		return  this.input +' is illegal';
@@ -97,42 +91,4 @@ BestBefore.prototype.validate = function() {
 var validate = function(input) {
 	var validator = new BestBefore(input);
 	return validator.validate();
-}
-
-var Oldvalidate = function(input) {
-	var finalYear;
-	var finalMonth;
-	var finalDay;
-	var nums = convertInput(input);
-	
-	var simpleYear = containsYear(nums);
-	if (simpleYear) { 
-		finalYear = simpleYear;
-		deleteFromArray(nums, finalYear);
-	}
-
-	var validMonths = returnValidMonths(nums);
-	if (validMonths.length >= 2 && finalYear === undefined) {
-		validMonths.sort().reverse();
-		finalYear = validMonths[0];
-		validMonths = removeFromArray(validMonths, finalYear);
-	}	
-
-	validMonths.forEach(function(i) {
-		var day = daysAreValidForMonth(i, nums);
-		if (day) {
-			finalDay = day;
-			finalMonth = i;
-			deleteFromArray(nums, finalMonth);
-		}
-	});
-
-	if (finalYear === undefined) {
-		finalYear = removeFromArray(nums, finalDay)[0];
-	}
-
-	if (finalYear === undefined || finalMonth === undefined || finalDay === undefined) {
-		return input + ' is illegal';
-	}
-	return formatDate(finalYear, finalMonth, finalDay);
 }

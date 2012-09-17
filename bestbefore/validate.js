@@ -1,20 +1,3 @@
-function formatDate(year, month, day) {
-	if (year < 2000) {
-		year += 2000;
-		year = year.toString();
-	}
-
-	if (month < 10) { 
-		month = '0' + month.toString();
-	}
-
-	if (day < 10) {
-		day = '0' + day.toString();
-	}
-
-	return year + '-' + month.toString() + '-' + day.toString();
-}
-
 var BestBefore = function(input) {
 	this.input = input;
 	this.numbers = convertInput(input);

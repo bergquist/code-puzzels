@@ -1,6 +1,5 @@
 if (typeof(exports) !== 'undefined' && typeof(module) !== 'undefined') {
-	var validate = require('./validate');
-	console.log(validate);
+	var validate = require('./bestBefore');
 }
 
 describe('validate', function() {

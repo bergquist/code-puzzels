@@ -142,8 +142,8 @@ var validate = function(input) {
 	return new BestBefore(input).validate();
 }
 
-if (typeof(exports) !== 'undefined') {
-	exports.validate = validate;
+if (typeof(exports) !== 'undefined' && typeof(module) !== 'undefined') {
+	module.exports = validate;
 } else {
 	window.validate = validate;
 }

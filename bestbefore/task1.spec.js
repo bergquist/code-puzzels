@@ -1,3 +1,8 @@
+if (typeof(exports) !== 'undefined' && typeof(module) !== 'undefined') {
+	var validate = require('./validate');
+	console.log(validate);
+}
+
 describe('validate', function() {
 	describe("28/2/12", function() {
 		it("should return 2002-12-28", function() {
@@ -47,4 +52,3 @@ describe('validate', function() {
 		})
 	});
 });
-

@@ -44,14 +44,6 @@
 		});
 	}
 
-	var convertInput = function(input) {
-		var arr = input.split('/');
-		var numbers = [];
-		arr.forEach(function(n) { numbers.push(parseInt(n)); })
-		numbers.sort();
-		return numbers;
-	}
-
 	var containsYear = function(numbers) {
 		var result = false;
 
@@ -70,7 +62,8 @@
 
 	var BestBefore = function(input) {
 		this.input = input;
-		this.numbers = convertInput(input);
+		var numbers = this.numbers = [];
+		input.split('/').forEach(function(n) { numbers.push(parseInt(n)); })
 		this.validMonths = [];
 	}
 
@@ -86,7 +79,7 @@
 		});
 	}
 
-	BestBefore.prototype.SetYear = function() {
+	BestBefore.prototype.setYearIfMissing = function() {
 		if (this.finalYear === undefined) {
 			deleteFromArray(this.numbers, this.finalDay);
 			this.finalYear = this.numbers[0];
@@ -111,9 +104,9 @@
 	}
 
 	BestBefore.prototype.tryToFindYear = function() {
-		var simpleYear = containsYear(this.numbers);
-		if (simpleYear) { 
-			this.finalYear = simpleYear;
+		var foundYear = containsYear(this.numbers);
+		if (foundYear) { 
+			this.finalYear = foundYear;
 		} else if (this.validMonths.length >= 2) {
 			this.validMonths.sort(function(a, b) { return a-b; });
 			this.finalYear = this.validMonths[0];
@@ -129,7 +122,7 @@
 		this.validMonths = returnValidMonths(this.numbers);
 		this.tryToFindYear();
 		this.setHighestAsDay();
-		this.SetYear();
+		this.setYearIfMissing();
 
 		if (this.finalYear && this.finalMonth && this.finalDay) {
 			return this.formatResponse();
@@ -143,7 +136,6 @@
 	}
 
 	if (typeof(exports) !== 'undefined' && typeof(module) !== 'undefined') {
-		console.log(module);
 		module.exports = validate;
 	} else {
 		window.validate = validate;

@@ -1,6 +1,8 @@
-h1. Best Before
+Best Before
+====================
 
-h2. Problem ID: bestbefore
+Problem ID: bestbefore
+---------------------
 
 Just about any product found in a grocery store has a "best before" date 
 printed on it. Unfortunately, the format for these dates can vary quite a bit: 
@@ -24,7 +26,8 @@ Recall that a year is a leap year (has 366 days) if the year is divisible by 4,
 unless it is divisible also by 100 but not by 400 (so 2000 is a leap year, 2100 
 is not a leap year, and 2012 is a leap year).
 
-h2. Input
+Input
+---------------------
 
 The input file consists of a single line containing three integers separated by 
 "/". There are no extra spaces around the "/". Years may be truncated to two 
@@ -34,7 +37,8 @@ days may be zero-padded. You may assume that the year, when given with four
 digits, is between 2000 and 2999. At most one of the integers has four digits, 
 and the others have one or two digits.
 
-h2. Output
+Output
+---------------------
 
 Output a single line giving the earliest legal date possible given the above 
 constraints. The output should be formatted as year-month-day, where year has 

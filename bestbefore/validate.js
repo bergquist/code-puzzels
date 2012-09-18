@@ -143,6 +143,7 @@ var validate = function(input) {
 }
 
 if (typeof(exports) !== 'undefined' && typeof(module) !== 'undefined') {
+	console.log(this);
 	module.exports = validate;
 } else {
 	window.validate = validate;

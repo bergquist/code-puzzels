@@ -1,27 +1,27 @@
 (function() {
-	var isLeapyear = function(year) {
+	function isLeapyear(year) {
 		if (year % 4 !== 0) { return false; }
-		if (year % 100 === 0 && year % 400 !== 0) { return false; }
+		if (year % 100 === 0 && year % 400 !== 0) { return false; } //400 is not needed. rephrase if-statement
 		return true;
 	}
 
-	var getDaysPerMonth = function(month, year) {
-		if (month === 2) {
+	function getDaysPerMonth(month, year) {
+		if (month !== 2) {
+			return [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+		} else {
 			if (isLeapyear(year)) {
 				return 29;
 			} else {
 				return 28;
 			}
-		} else {
-			return [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
 		}
 	}
 
-	var deleteFromArray = function(arr, value) {
+	function deleteFromArray(arr, value) {
 		arr.splice(arr.indexOf(value), 1);
 	}
 
-	var daysAreValidForMonth = function(month, otherNumbers) {
+	function daysAreValidForMonth(month, otherNumbers) {
 		var numbers = otherNumbers.slice();
 		numbers.splice(numbers.indexOf(month), 1);
 		numbers.sort(function(a, b) { return a-b; }).reverse();
@@ -38,13 +38,13 @@
 		return result == 0 ? undefined : result;
 	}
 
-	var returnValidMonths = function(numbers) {
+	function returnValidMonths(numbers) {
 		return numbers.filter(function(n) {
 			return n <= 12 && n >= 1;
 		});
 	}
 
-	var containsYear = function(numbers) {
+	function containsYear(numbers) {
 		var result = false;
 
 		numbers.forEach(function(i) {

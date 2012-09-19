@@ -1,11 +1,16 @@
 (function() {
-	if (typeof(exports) !== 'undefined' && typeof(module) !== 'undefined') {
-		module.exports = validate;
+	var root;
+	if (typeof(exports) !== 'undefined') {
+		root = exports;
 	} else {
-		window.validate = validate;
+		root = window.BestBefore = {};
 	}
 
-	var BestBefore = function(input) {
+	root.validate = function(input) {
+		return new BestBefore(input).validate();
+	}
+
+	function BestBefore(input) {
 		this.input = input;
 		var numbers = this.numbers = [];
 		input.split('/').forEach(function(n) { numbers.push(parseInt(n)); })
@@ -76,9 +81,7 @@
 		}
 	}
 
-	var validate = function(input) {
-		return new BestBefore(input).validate();
-	}
+	
 
 	function isLeapyear(year) {
 		if (year % 4 !== 0) { return false; }
@@ -138,10 +141,11 @@
 
 		return result;
 	}
-
+	/*
 	if (typeof(exports) !== 'undefined' && typeof(module) !== 'undefined') {
 		module.exports = validate;
 	} else {
 		window.validate = validate;
 	}
+	*/
 }).call(this);

@@ -141,11 +141,4 @@
 
 		return result;
 	}
-	/*
-	if (typeof(exports) !== 'undefined' && typeof(module) !== 'undefined') {
-		module.exports = validate;
-	} else {
-		window.validate = validate;
-	}
-	*/
 }).call(this);

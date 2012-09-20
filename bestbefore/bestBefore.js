@@ -84,8 +84,9 @@
 	
 
 	function isLeapyear(year) {
-		if (year % 4 !== 0) { return false; }
-		if (year % 100 === 0 && year % 400 !== 0) { return false; } //400 is not needed. rephrase if-statement
+		return year % 4 === 0
+
+		if ((year % 4 !== 0) || (year % 100 === 0 && year % 4 !== 0)) { return false; } //400 is not needed. rephrase if-statement
 		return true;
 	}
 
@@ -113,7 +114,7 @@
 		
 		numbers.forEach(function(num) {
 			var potentialYear = numbers.slice();
-			potentialYear.splice(potentialYear.indexOf(num), 1);
+			deleteFromArray(potentialYear, num)
 			if (num <= getDaysPerMonth(month, potentialYear) && num > result) {
 				result = num;
 			}

@@ -1,4 +1,5 @@
 (function() {
+	'use strict';
 	var root;
 	if (typeof(exports) !== 'undefined') {
 		root = exports;
@@ -91,13 +92,8 @@
 	function getDaysPerMonth(month, year) {
 		if (month !== 2) {
 			return [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
-		} else {
-			if (isLeapyear(year)) {
-				return 29;
-			} else {
-				return 28;
-			}
-		}
+		} 
+		return isLeapyear(year) ? 29 : 28;
 	}
 
 	function deleteFromArray(arr, value) {

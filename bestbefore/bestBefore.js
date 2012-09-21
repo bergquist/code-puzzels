@@ -33,8 +33,22 @@
 
 	BestBefore.prototype.setHighestAsDay = function() {
 		var self = this;
+		var numbers = self.numbers.slice();
+		numbers.sort(function(a, b) { return a-b; }).reverse();
+		
 		this.validMonths.forEach(function(month) {
-			var day = daysAreValidForMonth(month, self.numbers);
+			deleteFromArray(numbers, month)
+
+			var day = false;			
+			numbers.forEach(function(value) {
+				var potentialYear = numbers.slice();
+				deleteFromArray(potentialYear, value);
+
+				if (value <= getDaysPerMonth(month, potentialYear) && value > day) {
+					day = value;
+				}
+			});
+			
 			if (day) {
 				self.finalDay = day;
 				self.finalMonth = month;
@@ -96,25 +110,6 @@
 
 	function deleteFromArray(arr, value) {
 		arr.splice(arr.indexOf(value), 1);
-	}
-
-	function daysAreValidForMonth(month, otherNumbers) {
-		var numbers = otherNumbers.slice();
-		deleteFromArray(numbers, month)
-		numbers.sort(function(a, b) { return a-b; }).reverse();
-		var result = 0;
-		
-		numbers.forEach(function(value) {
-			var potentialYear = numbers.slice();
-			deleteFromArray(potentialYear, value);
-
-			//using highest day means earlier date in total.
-			if (value <= getDaysPerMonth(month, potentialYear) && value > result) {
-				result = value;
-			}
-		});
-		
-		return result === 0 ? undefined : result;
 	}
 
 	function returnValidMonths(numbers) {

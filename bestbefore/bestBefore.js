@@ -104,15 +104,16 @@
 		numbers.sort(function(a, b) { return a-b; }).reverse();
 		var result = 0;
 		
-		numbers.forEach(function(num) {
+		numbers.forEach(function(value) {
 			var potentialYear = numbers.slice();
-			deleteFromArray(potentialYear, num);
+			deleteFromArray(potentialYear, value);
+
 			//using highest day means earlier date in total.
-			if (num <= getDaysPerMonth(month, potentialYear) && num > result) {
-				result = num;
+			if (value <= getDaysPerMonth(month, potentialYear) && value > result) {
+				result = value;
 			}
 		});
-
+		
 		return result === 0 ? undefined : result;
 	}
 

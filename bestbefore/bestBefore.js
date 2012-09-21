@@ -81,8 +81,6 @@
 		}
 	}
 
-	
-
 	function isLeapyear(year) {
 		return year % 4 === 0
 

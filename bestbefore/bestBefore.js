@@ -24,6 +24,10 @@
 		this.setHighestAsDay();
 		this.setYearIfMissing();
 
+		return this.validateAndFormatResponse();
+	}
+
+	BestBefore.prototype.validateAndFormatResponse = function() {
 		if (this.finalYear && this.finalMonth && this.finalDay) {
 			return this.formatResponse();
 		} else {

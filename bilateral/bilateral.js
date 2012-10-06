@@ -7,20 +7,13 @@
 		root = window.Bilateral = {};
 	}
 
-	function Node(id, neighbour) {
-		this.id = id;
-		this.neighbours = [ neighbour ];
-	}
-
-	var persons;
-
 	root.calc = function(input) {
-		persons = parse(input);
-		kill();
-		return persons.map(function(node) { return node.id; }).sort(function(a, b) { return a-b; });
+		var persons = parseInput(input);
+		iterate(persons);
+		return formatResponse(persons);
 	}
 
-	function kill(level) {
+	function iterate(persons, level) {
 		level = level || 0;
 		if (persons[level] === undefined) { return; }
 
@@ -42,12 +35,12 @@
 			persons.splice(persons.indexOf(r), 1);
 		});
 
-		persons.sort(sortPersons)
-		kill(++level);
+		persons.sort(sortByNeighbourCount)
+		iterate(persons, level + 1);
 	}
 
 
-	function parse(input) {
+	function parseInput(input) {
 		var rows = input.split('\n');
 		var result = [];
 		for(var i = 1; i < rows.length - 1;i++) {
@@ -61,23 +54,33 @@
 
 		function addNode(a, b) {
 			if (result[a] === undefined) {
-				result[a] = new Node(a, b);
+				result[a] = { id: a, neighbours: [ b ] };
 			} else {
 				result[a].neighbours.push(b);
 			}
 		}
 
-		result.sort(sortPersons);
+		result.sort(sortByNeighbourCount);
 		return result;
 	}
 
-	function sortPersons(a, b) {
+	function sortByNeighbourCount(a, b) {
 		var diff = b.neighbours.length - a.neighbours.length;
 		if (diff === 0) {
+			if (b.id === 1009) {
+				return -1;
+			} 
+
 			return b.id - a.id;
 		}
 
 		return diff;
+	}
+
+	function formatResponse(persons) {
+		var result = persons.map(function(node) { return node.id; });
+		result.sort(function(a, b) { return a-b; });
+		return result;
 	}
 
 	function printNode(node) {

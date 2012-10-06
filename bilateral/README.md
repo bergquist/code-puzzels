@@ -1,20 +1,50 @@
-Bilateral Projects
+Best Before
 ====================
 
-Problem ID: bilateral
+Problem ID: bestbefore
 ---------------------
 
-A friend of yours works at an undisclosed company in the music streaming industry, and needs your help. The company has offices in Stockholm and London, and collaboration between the two offices is extensive. The situation is that each of the many but small projects is handled by a two-person team with a member in each city. While emails, faxes, and phones are wonderful, and work well within each team, the CEO wants a briefing every year on the projects. For this purpose the CEO invites representatives from the projects to Barbados for a week of beach fun presentations of all the projects. However, money is tight and a new policy has been created: the CEO wants at least one person from each project, and additionally, she wants to invite as few people as possible. This is where you come in. In order to help your friend get a ticket to Barbados, you are to write a program that, given all the two-person teams, computes the smallest number of people that must be invited in order to get at least one person from each project, as well as a list of people to invite. If possible (subject to the set of people being smallest possible), the list of invitees should include your friend.
+Just about any product found in a grocery store has a "best before" date 
+printed on it. Unfortunately, the format for these dates can vary quite a bit: 
+what is it supposed to mean that the bread you bought yesterday is "best before 
+12/11/10"? It could mean that the bread expires on November 10, 2012 (now 
+that's a suspiciously durable bread and probably it is not healthy for you for 
+other reasons!), or it could mean that the bread expired on December 11, 2010 
+(d'oh!), or a variety of other options. To be safe, the truly paranoid (or 
+healthily skeptic, depending on who you ask) person would assume that it means 
+"best before November 12, 2010", since that is the earliest possible date. On 
+the other hand, seeing "31/5/2012" even the truly paranoid person knows that 
+this must mean May 31, 2011 since that is the only possible real date using 
+these three numbers.
+
+Given a possibly ambiguous date "A/B/C", where A,B,C are integers between 0 and 
+2999, output the earliest possible legal date between Jan 1, 2000 and Dec 31, 
+2999 (inclusive) using them as day, month and year (but not necessarily in that 
+order).
+
+Recall that a year is a leap year (has 366 days) if the year is divisible by 4, 
+unless it is divisible also by 100 but not by 400 (so 2000 is a leap year, 2100 
+is not a leap year, and 2012 is a leap year).
 
 Input
 ---------------------
 
-The first line of input contains an integer 1 ≤ m ≤ 10 000, the number of teams. The following m lines each contain two integers, i, j separated by a space, being the employee IDs of the two employees in that team (the first one is from Stockholm and the second one is from London). Stockholm employees have IDs in the range 1000 to 1999 and London employees have IDs in the range 2000 to 2999. An employee can be a member of several teams, but there cannot be several teams consisting of the same pair of employees. Your friend has ID 1009.
+The input file consists of a single line containing three integers separated by 
+"/". There are no extra spaces around the "/". Years may be truncated to two 
+digits and may in that case also omit the leading 0 (if there is one), so 2000 
+could be given as "2000", "00" or "0" (but not as an empty string). Months and 
+days may be zero-padded. You may assume that the year, when given with four 
+digits, is between 2000 and 2999. At most one of the integers has four digits, 
+and the others have one or two digits.
 
 Output
 ---------------------
 
-Output first a single line with an integer k indicating the smallest number of employees that must be invited to meet the requirements above. Then output k lines giving the IDs of employees to invite. If possible (subject to k being smallest possible), the list should contain your friend.
-If there are several solutions subject to these constraints, anyone is acceptable. 
+Output a single line giving the earliest legal date possible given the above 
+constraints. The output should be formatted as year-month-day, where year has 
+four digits, and month and day have two digits each (zero padding), for example 
+"2011-07-15". If there is no legal date (subject to the above constraints) then 
+output a single line with the original string followed by the words "is 
+illegal".
 
 

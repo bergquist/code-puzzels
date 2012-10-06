@@ -7,30 +7,28 @@
 		root = window.Bilateral = {};
 	}
 
+	var friendId = 1009;
+
 	root.calc = function(input) {
 		var p = iterate(parseInput(input, sortByNeighbourCount), sortByNeighbourCount);
-		var f = iterate(parseInput(input, friendSort), friendSort);
+		//var p = iterate(parseInput(input, friendSort), friendSort);
 
-		var r = f.length > p.length ? p : f;
+		//var r = f.length > p.length ? p : f;
+		var r = p;
 		r.sort(function(a, b) { return a-b; });
 		return r;
 	}
 
 	function iterate(persons, sorter, level) {
 		level = level || 0;
-		console.log(level	)
-		if (persons[level] === undefined) { 
-			var r = persons.map(function(p) { return p.id; }); 
-			console.log('returning: ', r);
-			return r;
-		}
-
 		persons.forEach(printNode);
 
 		var idToRemove = persons[level].id; 
 		var toRemove = [];
 
 		persons.forEach(function(pers, index) {
+			if (pers.id === friendId) { return; }
+
 			var pos = pers.neighbours.indexOf(idToRemove);
 			if (pos >= 0) {
 				persons[index].neighbours.splice(pos, 1);
@@ -41,13 +39,21 @@
 			}
 		});
 
-		console.log('toRemove: ', toRemove)
+		console.log('- - - - - - ')
 		toRemove.forEach(function(r) {
 			persons.splice(persons.indexOf(r), 1);
 		});
 
+		persons.forEach(printNode);
+
+		level += 1;
+		if (persons[level] === undefined) { 
+			var r = persons.map(function(p) { return p.id; }); 
+			return r;
+		}
+
 		persons.sort(sortByNeighbourCount)
-		return iterate(persons, sorter, level + 1);
+		return iterate(persons, sorter, level);
 	}
 
 
@@ -64,10 +70,14 @@
 		}
 
 		function addNode(a, b) {
-			if (result[a] === undefined) {
-				result[a] = { id: a, neighbours: [ b ] };
+			if (result.some(function(i) { return i.id === a})) {
+				result.forEach(function(r) {
+					if (r.id === a) {
+						r.neighbours.push(b);		
+					}
+				});
 			} else {
-				result[a].neighbours.push(b);
+				result.push({ id: a, neighbours: [ b ] });
 			}
 		}
 
@@ -87,7 +97,7 @@
 	function friendSort(a, b) {
 		var diff = b.neighbours.length - a.neighbours.length;
 		if (diff === 0) {
-			if (b.id === 1009) {
+			if (b.id === friendId) {
 				return 1;
 			} 
 

@@ -8,14 +8,24 @@
 	}
 
 	root.calc = function(input) {
-		var persons = parseInput(input);
-		iterate(persons);
-		return formatResponse(persons);
+		var p = iterate(parseInput(input, sortByNeighbourCount), sortByNeighbourCount);
+		var f = iterate(parseInput(input, friendSort), friendSort);
+
+		var r = f.length > p.length ? p : f;
+		r.sort(function(a, b) { return a-b; });
+		return r;
 	}
 
-	function iterate(persons, level) {
+	function iterate(persons, sorter, level) {
 		level = level || 0;
-		if (persons[level] === undefined) { return; }
+		console.log(level	)
+		if (persons[level] === undefined) { 
+			var r = persons.map(function(p) { return p.id; }); 
+			console.log('returning: ', r);
+			return r;
+		}
+
+		persons.forEach(printNode);
 
 		var idToRemove = persons[level].id; 
 		var toRemove = [];
@@ -31,19 +41,20 @@
 			}
 		});
 
+		console.log('toRemove: ', toRemove)
 		toRemove.forEach(function(r) {
 			persons.splice(persons.indexOf(r), 1);
 		});
 
 		persons.sort(sortByNeighbourCount)
-		iterate(persons, level + 1);
+		return iterate(persons, sorter, level + 1);
 	}
 
 
-	function parseInput(input) {
+	function parseInput(input, sorter) {
 		var rows = input.split('\n');
 		var result = [];
-		for(var i = 1; i < rows.length - 1;i++) {
+		for(var i = 1; i < rows.length - 1;++i) {
 			var row = rows[i].split(' ');
 			var sto = parseInt(row[0]);
 			var lon = parseInt(row[1]);
@@ -60,21 +71,30 @@
 			}
 		}
 
-		result.sort(sortByNeighbourCount);
+		result.sort(sorter);
 		return result;
 	}
 
 	function sortByNeighbourCount(a, b) {
 		var diff = b.neighbours.length - a.neighbours.length;
+		if (diff !== 0) { 
+			return diff;			
+		}
+
+		return b.id - a.id; 
+	}
+
+	function friendSort(a, b) {
+		var diff = b.neighbours.length - a.neighbours.length;
 		if (diff === 0) {
 			if (b.id === 1009) {
-				return -1;
+				return 1;
 			} 
 
 			return b.id - a.id;
 		}
 
-		return diff;
+		return diff;	
 	}
 
 	function formatResponse(persons) {

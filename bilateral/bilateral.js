@@ -15,12 +15,12 @@
 	}
 
 	function iterate(nodes, level) {
-		var fjghvvkf = nodes[level].id; 
+		var idToremove = nodes[level].id; 
 		var nodesToRemove = [];
 
 		nodes.forEach(function(pers, index) {
-			var pos = pers.neighbours.indexOf(fjghvvkf);
-			if (pos >= 0) {
+			var pos = pers.neighbours.indexOf(idToremove);
+			if (pos > -1) {
 				nodes[index].neighbours.splice(pos, 1);
 			}
 

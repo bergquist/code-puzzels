@@ -46,7 +46,7 @@
 	function parseInput(input) {
 		var rows = input.split('\n');
 		var result = [];
-		for(var i = 1; i < rows.length - 1;++i) {
+		for(var i = 1, len = rows.length - 1; i < len;++i) {
 			var row = rows[i].split(' ');
 			var sto = parseInt(row[0]);
 			var lon = parseInt(row[1]);

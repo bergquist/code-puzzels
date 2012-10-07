@@ -7,7 +7,7 @@ if (typeof(exports) !== 'undefined' && typeof(module) !== 'undefined') {
 
 describe('bilateral', function() {
 	beforeEach(function() { this.input = ''; });
-/*	
+	
 	it('Sample 1', function() {
 		this.input += '2\n';
 		this.input += '1009 2011\n';
@@ -25,7 +25,7 @@ describe('bilateral', function() {
 
 		expect(Bilateral.calc(this.input)).toEqual([ 1009, 2002 ]);
 	});
-
+	
 	it('My Sample', function() {
 		this.input += '8\n';
 		this.input += '10 11\n';
@@ -42,7 +42,7 @@ describe('bilateral', function() {
 
 		expect(Bilateral.calc(this.input)).toEqual([ 5, 11, 12, 16 ]);
 	});
-*/
+
 	it('Friend should not come since it increase people', function() {
 		this.input += '8\n';
 		this.input += '10 11\n';
@@ -59,4 +59,5 @@ describe('bilateral', function() {
 
 		expect(Bilateral.calc(this.input)).toEqual([ 5, 11, 12, 16 ]);
 	});
+	
 });

@@ -7,57 +7,48 @@
 		root = window.Bilateral = {};
 	}
 
-	var friendId = 1009;
-
 	root.calc = function(input) {
-		var p = iterate(parseInput(input, sortByNeighbourCount), sortByNeighbourCount);
-		//var p = iterate(parseInput(input, friendSort), friendSort);
+		var nodes = parseInput(input);
+		var result = iterate(nodes);
 
-		//var r = f.length > p.length ? p : f;
-		var r = p;
-		r.sort(function(a, b) { return a-b; });
-		return r;
+		result.sort(function(a, b) { return a-b; });
+		return result;
 	}
 
-	function iterate(persons, sorter, level) {
+	function iterate(nodes, level) {
 		level = level || 0;
-		persons.forEach(printNode);
-
-		var idToRemove = persons[level].id; 
+		nodes.forEach(printNode);
+		console.log('- - - - - - - -')
+		var idToRemove = nodes[level].id; 
 		var toRemove = [];
 
-		persons.forEach(function(pers, index) {
-			if (pers.id === friendId) { return; }
-
+		nodes.forEach(function(pers, index) {
 			var pos = pers.neighbours.indexOf(idToRemove);
 			if (pos >= 0) {
-				persons[index].neighbours.splice(pos, 1);
+				nodes[index].neighbours.splice(pos, 1);
 			}
 
-			if (persons[index].neighbours.length === 0) {
+			if (nodes[index].neighbours.length === 0) {
 				toRemove.push(pers.id);
 			}
 		});
 
-		console.log('- - - - - - ')
 		toRemove.forEach(function(r) {
-			persons.splice(persons.indexOf(r), 1);
+			nodes.splice(nodes.indexOf(r), 1);
 		});
 
-		persons.forEach(printNode);
-
 		level += 1;
-		if (persons[level] === undefined) { 
-			var r = persons.map(function(p) { return p.id; }); 
+		if (nodes[level] === undefined) { 
+			var r = nodes.map(function(p) { return p.id; }); 
 			return r;
 		}
 
-		persons.sort(sortByNeighbourCount)
-		return iterate(persons, sorter, level);
+		nodes.sort(sortOrder)
+		return iterate(nodes, level);
 	}
 
 
-	function parseInput(input, sorter) {
+	function parseInput(input) {
 		var rows = input.split('\n');
 		var result = [];
 		for(var i = 1; i < rows.length - 1;++i) {
@@ -81,24 +72,15 @@
 			}
 		}
 
-		result.sort(sorter);
+		result.sort(sortOrder);
 		return result;
 	}
 
-	function sortByNeighbourCount(a, b) {
-		var diff = b.neighbours.length - a.neighbours.length;
-		if (diff !== 0) { 
-			return diff;			
-		}
-
-		return b.id - a.id; 
-	}
-
-	function friendSort(a, b) {
+	function sortOrder(a, b) {
 		var diff = b.neighbours.length - a.neighbours.length;
 		if (diff === 0) {
-			if (b.id === friendId) {
-				return 1;
+			if (a.id === 1009) {
+				return -1;
 			} 
 
 			return b.id - a.id;

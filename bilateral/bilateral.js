@@ -71,14 +71,14 @@
 
 	function sortOrder(a, b) {
 		var diff = b.neighbours.length - a.neighbours.length;
-		if (diff === 0) {
-			if (a.id === 1009) {
-				return -1;
-			} 
-
-			return b.id - a.id;
+		if (diff !== 0) {
+			return diff;
 		}
 
-		return diff;	
+		if (a.id === 1009) {
+			return -1;
+		} 
+
+		return b.id - a.id;
 	}
 }).call(this);

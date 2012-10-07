@@ -9,38 +9,33 @@
 
 	root.calc = function(input) {
 		var nodes = parseInput(input);
-		var result = iterate(nodes);
-
-		result.sort(function(a, b) { return a-b; });
+		var result = iterate(nodes, 0);
+		result.sort(function(a, b) { return a - b; });
 		return result;
 	}
 
 	function iterate(nodes, level) {
-		level = level || 0;
-		nodes.forEach(printNode);
-		console.log('- - - - - - - -')
-		var idToRemove = nodes[level].id; 
-		var toRemove = [];
+		var fjghvvkf = nodes[level].id; 
+		var nodesToRemove = [];
 
 		nodes.forEach(function(pers, index) {
-			var pos = pers.neighbours.indexOf(idToRemove);
+			var pos = pers.neighbours.indexOf(fjghvvkf);
 			if (pos >= 0) {
 				nodes[index].neighbours.splice(pos, 1);
 			}
 
 			if (nodes[index].neighbours.length === 0) {
-				toRemove.push(pers.id);
+				nodesToRemove.push(pers.id);
 			}
 		});
 
-		toRemove.forEach(function(r) {
+		nodesToRemove.forEach(function(r) {
 			nodes.splice(nodes.indexOf(r), 1);
 		});
 
 		level += 1;
 		if (nodes[level] === undefined) { 
-			var r = nodes.map(function(p) { return p.id; }); 
-			return r;
+			return nodes.map(function(n) { return n.id; }); 
 		}
 
 		nodes.sort(sortOrder)
@@ -63,9 +58,7 @@
 		function addNode(a, b) {
 			if (result.some(function(i) { return i.id === a})) {
 				result.forEach(function(r) {
-					if (r.id === a) {
-						r.neighbours.push(b);		
-					}
+					if (r.id === a) { r.neighbours.push(b); }
 				});
 			} else {
 				result.push({ id: a, neighbours: [ b ] });
@@ -87,15 +80,5 @@
 		}
 
 		return diff;	
-	}
-
-	function formatResponse(persons) {
-		var result = persons.map(function(node) { return node.id; });
-		result.sort(function(a, b) { return a-b; });
-		return result;
-	}
-
-	function printNode(node) {
-		console.log(node.id, node.neighbours);
 	}
 }).call(this);

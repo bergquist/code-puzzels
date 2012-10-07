@@ -25,39 +25,22 @@ describe('bilateral', function() {
 
 		expect(Bilateral.calc(this.input)).toEqual([ 1009, 2002 ]);
 	});
-	
-	it('My Sample', function() {
-		this.input += '8\n';
-		this.input += '10 11\n';
-		this.input += '8 11\n';
-		this.input += '9 11\n';
-		this.input += '10 12\n';
-		this.input += '5 13\n';
-		this.input += '5 15\n';
-		this.input += '6 12\n';
-		this.input += '7 12\n';
-		this.input += '1 12\n';
-		this.input += '1 16\n';
-		this.input += '10 16\n';
-
-		expect(Bilateral.calc(this.input)).toEqual([ 5, 11, 12, 16 ]);
-	});
 
 	it('Friend should not come since it increase people', function() {
 		this.input += '8\n';
-		this.input += '10 11\n';
-		this.input += '8 11\n';
-		this.input += '9 11\n';
-		this.input += '10 12\n';
-		this.input += '5 13\n';
-		this.input += '5 15\n';
-		this.input += '6 12\n';
-		this.input += '1009 12\n';
-		this.input += '1 12\n';
-		this.input += '1 16\n';
-		this.input += '10 16\n';
+		this.input += '1010 2011\n';
+		this.input += '1008 2011\n';
+		this.input += '1009 2011\n';
+		this.input += '1010 2012\n';
+		this.input += '1005 2013\n';
+		this.input += '1005 2015\n';
+		this.input += '1006 2012\n';
+		this.input += '1009 2012\n';
+		this.input += '1001 2012\n';
+		this.input += '1001 2016\n';
+		this.input += '1010 2016\n';
 
-		expect(Bilateral.calc(this.input)).toEqual([ 5, 11, 12, 16 ]);
+		expect(Bilateral.calc(this.input)).toEqual([ 1005, 2011, 2012, 2016 ]);
 	});
 	
 });

@@ -42,5 +42,4 @@ describe('bilateral', function() {
 
 		expect(Bilateral.calc(this.input)).toEqual([ 1005, 2011, 2012, 2016 ]);
 	});
-	
 });

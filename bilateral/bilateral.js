@@ -69,16 +69,16 @@
 		return result;
 	}
 
+	function buildGraph(input) {
+
+	}
+
 	function sortOrder(a, b) {
 		var diff = b.neighbours.length - a.neighbours.length;
 		if (diff !== 0) {
 			return diff;
 		}
 
-		if (a.id === 1009) {
-			return -1;
-		} 
-
-		return b.id - a.id;
+		return a.id === 1009 ? -1 : b.id - a.id;
 	}
 }).call(this);

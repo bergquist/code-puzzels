@@ -8,7 +8,8 @@
 	}
 
 	root.calc = function(input) {
-		var nodes = parseInput(input);
+		var relations = parseInput(input);
+		var nodes = buildGraph(relations);
 		var result = iterate(nodes, 0);
 		result.sort(function(a, b) { return a - b; });
 		return result;
@@ -48,15 +49,26 @@
 
 	function parseInput(input) {
 		var rows = input.split('\n');
-		var result = [];
+		
+		var relations = [];
 		for(var i = 1, len = rows.length - 1; i < len;++i) {
 			var row = rows[i].split(' ');
 			var sto = parseInt(row[0]);
 			var lon = parseInt(row[1]);
-			
-			addNode(sto, lon);
-			addNode(lon, sto);
+			relations.push({ sto: sto, lon: lon });
 		}
+
+		return relations;
+	}
+
+	function buildGraph(relations) {
+		var result = [];
+		
+		//Adds or update relations from both sides.
+		relations.forEach(function(n) {
+			addNode(n.sto, n.lon);
+			addNode(n.lon, n.sto);
+		});
 
 		function addNode(a, b) {
 			if (result.some(function(i) { return i.id === a})) {
@@ -70,10 +82,6 @@
 
 		result.sort(sortOrder);
 		return result;
-	}
-
-	function buildGraph(input) {
-
 	}
 
 	function sortOrder(a, b) {

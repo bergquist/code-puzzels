@@ -11,7 +11,7 @@
 		var relations = parseInput(input);
 		var nodes = buildGraph(relations);
 		var result = iterate(nodes, 0);
-		result.sort(function(a, b) { return a - b; });
+		result.sort(function(a, b) { return a - b; }); //sort by size for easier testing :)
 		return result;
 	}
 

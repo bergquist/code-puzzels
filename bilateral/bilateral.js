@@ -90,6 +90,7 @@
 			return diff;
 		}
 
+		//this gives our friend prio
 		return a.id === 1009 ? -1 : b.id - a.id;
 	}
 }).call(this);

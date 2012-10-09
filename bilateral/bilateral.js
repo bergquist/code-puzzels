@@ -18,17 +18,20 @@
 		var idToremove = nodes[level].id; 
 		var nodesToRemove = [];
 
+		//remove relations from others nodes to current.
 		nodes.forEach(function(pers, index) {
 			var pos = pers.neighbours.indexOf(idToremove);
 			if (pos > -1) {
 				nodes[index].neighbours.splice(pos, 1);
 			}
-
-			if (nodes[index].neighbours.length === 0) {
-				nodesToRemove.push(pers.id);
-			}
 		});
 
+		//select nodes without any relations
+		var nodesToRemove = nodes.filter(function(n) {
+			return n.neighbours.length === 0
+		});
+
+		//delete nodes without relations.
 		nodesToRemove.forEach(function(r) {
 			nodes.splice(nodes.indexOf(r), 1);
 		});
